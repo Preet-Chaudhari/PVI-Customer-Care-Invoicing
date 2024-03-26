@@ -1,0 +1,582 @@
+﻿@model ASME_CBI
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <img src="https://www.pvi.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/55972-50065/pvi-logo" alt="PVI Logo" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 100px;">
+            <h5 class="text-primary text-center">ASME SECTION IV - HLW</h5>
+            <h5 class="text-primary text-center">CONQUEST / BRIGAGDE TANK FABRICATION / INSPECTION REPORT</h5>
+            <hr />
+        </div>
+
+        <!-- checkbox Button -->
+        <script>
+            function toggleRow(checkbox) {
+                var row = checkbox.parentNode.parentNode; // Get the parent row of the checkbox
+
+                if (checkbox.checked) {
+                    row.style.backgroundColor = ""; // Reset the background color to default
+                } else {
+                    row.style.backgroundColor = "#e5e5e5"; // Change the background color to grey
+                }
+
+                var inputs = row.getElementsByTagName("input"); // Get all the input elements in the row
+
+                for (var i = 0; i < inputs.length; i++) {
+                    // Iterate over all input elements
+                    if (inputs[i].type === "checkbox") {
+                        inputs[i].checked = checkbox.checked; // Check/uncheck the checkbox
+                    } else {
+                        inputs[i].disabled = !checkbox.checked; // Enable/disable input elements based on checkbox state
+                    }
+                }
+            }
+        </script>
+
+        <script>
+            // JavaScript
+            document.addEventListener("keyup", function (event) {
+                if (event.target.classList.contains("uppercase-input")) {
+                    event.target.value = event.target.value.toUpperCase();
+                }
+            });
+        </script>
+
+        <script>
+            function restrictInputLength(element, maxLength) {
+                if (element.textContent.length > maxLength) {
+                    element.textContent = element.textContent.slice(0, maxLength);
+                }
+            }
+        </script>
+
+        <style>
+            .center-align {
+                text-align: center;
+            }
+
+            .narrow-input {
+                width: 160px;
+            }
+
+            .broad-input {
+                width: 200px;
+            }
+
+            .big-input {
+                width: 250px;
+            }
+
+            .mfg-input {
+                width: 50px;
+                height: 30px;
+            }
+
+            .lot-input {
+                width: 100px;
+                height: 30px;
+            }
+        </style>
+
+        <div class="mb-4 p-1">
+            <!-- JOB TRAVELER# -->
+            <label asp-for="JOB_TRAVELER_NUMBER" class="p-0"></label>
+            <input asp-for="JOB_TRAVELER_NUMBER" class="broad-input" />
+            <!-- NATL.BD.# -->
+            <label asp-for="NATL_BD_NUMBER" class="p-0"></label>
+            <input asp-for="NATL_BD_NUMBER" class="uppercase-input broad-input" />
+            <!-- PART# -->
+            <label asp-for="PART_NUMBER" class="p-0"></label>
+            <input asp-for="PART_NUMBER" class="uppercase-input broad-input" />
+        </div>
+
+        <div class="mb-4 p-1">
+            <!-- BASIC TANK SN# -->
+            <label asp-for="BASIC_TANK_NUMBER" class="p-0"></label>
+            <input asp-for="BASIC_TANK_NUMBER" class="uppercase-input broad-input" />
+            <!-- HX SN# -->
+            <label asp-for="HX_NUMBER" class="p-0"></label>
+            <input asp-for="HX_NUMBER" class="uppercase-input broad-input" />
+            <!-- DESCRIPTION: -->
+            <label asp-for="DESCRIPTION" class="p-0"></label>
+            <input asp-for="DESCRIPTION" class="uppercase-input big-input" />
+        </div>
+
+        <div class="mb-4 p-1">
+            <!-- DWG# -->
+            <label asp-for="DWG_NUMBER" class="p-0"></label>
+            <input asp-for="DWG_NUMBER" class="uppercase-input broad-input" />
+            <!-- MVP# -->
+            <label asp-for="MVP_NUMBER" class="p-0"></label>
+            <input asp-for="MVP_NUMBER" class="uppercase-input broad-input" />
+        </div>
+
+        <!-- Table Form -->
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+            }
+
+            .number-input {
+                width: 50px;
+                height: 30px;
+            }
+        </style>
+
+        <!-- Actual Table -->
+        <div class="center-align">
+            <table style="width:100%">
+                <thead>
+                    <tr>
+                        <th>INCLUDE</th>
+                        <th colspan="2">PROCEDURE</th>
+                        <th colspan="2">WELDER</th>
+                        <th>FITUP</th>
+                        <th colspan="2">LOT NUMBER</th>
+                        <th colspan="2">MFG</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Row 1 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td style=" font-size: 12px;">PLATE ROLLS</td>
+                        <td style=" font-size: 12px;">PLATE ROLLS</td>
+                        <td>
+                            <input asp-for="PLATE_ROLLS_WELDER_1" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>
+                            <input asp-for="PLATE_ROLLS_WELDER_2" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td>
+                            <input asp-for="PLATE_ROLLS_LOT_NUMBER_1" class="text-uppercase lot-input" />
+                        </td>
+                        <td>
+                            <input asp-for="PLATE_ROLLS_LOT_NUMBER_2" class="text-uppercase lot-input" />
+                        </td>
+                        <td>
+                            <input asp-for="PLATE_ROLLS_MFG_1" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                        <td>
+                            <input asp-for="PLATE_ROLLS_MFG_2" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 2 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">LONGSEAM WEILD</td>
+                        <td colspan="2">
+                            <input asp-for="LONGSEAM_WELD_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="LONGSEAM_WELD_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 3 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">JOGGLE</td>
+                        <td colspan="2">
+                            <input asp-for="JOGGLE_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="JOGGLE_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 4 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">TOP HEAD</td>
+                        <td colspan="2">
+                            <input asp-for="TOP_HEAD_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2">
+                            <input asp-for="TOP_HEAD_LOT_NUMBER" class="text-uppercase lot-input" />
+                        </td>
+                        <td colspan="2">
+                            <input asp-for="TOP_HEAD_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 5 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">TUBE VERIFICATION HX INSTALLATION</td>
+                        <td colspan="2">
+                            <input asp-for="TUBE_VERIFICATION_HX_INSTALLATION_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="TUBE_VERIFICATION_HX_INSTALLATION_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 6 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">CHAMBER HEAD</td>
+                        <td colspan="2">
+                            <input asp-for="CHAMBER_HEAD_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="CHAMBER_HEAD_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 7 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">BOTTOM HEAD</td>
+                        <td colspan="2">
+                            <input asp-for="BOTTOM_HEAD_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="BOTTOM_HEAD_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 8 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">CHAMBER SHELL</td>
+                        <td colspan="2">
+                            <input asp-for="CHAMBER_SHELL_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="CHAMBER_SHELL_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 9 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">ATTACHMENTS</td>
+                        <td colspan="2">
+                            <input asp-for="ATTACHMENTS_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2">
+                            <input asp-for="ATTACHMENTS_LOT_NUMBER" class="text-uppercase lot-input" />
+                        </td>
+                        <td colspan="2">
+                            <input asp-for="ATTACHMENTS_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 10 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">ERW STUD</td>
+                        <td colspan="2">
+                            <input asp-for="ERW_STUD_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="ERW_STUD_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 11 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">MPG HYDRO TEST</td>
+                        <td colspan="2">
+                            <input asp-for="MFG_HYDRO_TEST_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;"></span>
+                            <input asp-for="MFG_HYDRO_TEST_DATE" id="datepicker" type="date" />
+                        </td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2" class="text-uppercase">&#x2718;</td>
+                    </tr>
+
+                    <!-- Row 12 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">MFG NATL BD.NUMBER</td>
+                        <td colspan="2">
+                            <input asp-for="MFG_NATL_BD_NUMBER_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;"></span>
+                            <input asp-for="MFG_NATL_BD_NUMBER_DATE" id="datepicker" type="date" />
+                        </td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2" class="text-uppercase">&#x2718;</td>
+                    </tr>
+
+                    <!-- Row 13 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style="font-size: 12px;">QA NATL BD NUMBER</td>
+                        <td colspan="2">
+                            <input asp-for="QA_NATL_BD_NUMBER_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;"></span>
+                            <input asp-for="QA_NATL_BD_NUMBER_DATE" id="datepicker" type="date" />
+                        </td>
+                        <td colspan="2" class="text-uppercase" style="font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2" class="text-uppercase">&#x2718;</td>
+                    </tr>
+
+                    <!-- Row 14 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">QA HYDRO TEST</td>
+                        <td colspan="2">
+                            <input asp-for="QA_HYDRO_TEST_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;"></span>
+                            <input asp-for="QA_HYDRO_TEST_DATE" id="datepicker" type="date" />
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;">PSI:</span>
+                            <input asp-for="QA_HYDRO_TEST_PSI" oninput="this.value = this.value.slice(0, 5)" class="lot-input" style="border: none; border-bottom: 1px solid black;">
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;">GAUGE:</span>
+                            <input asp-for="QA_HYDRO_TEST_GAUGE" oninput="this.value = this.value.slice(0, 5)" class="lot-input" style="border: none; border-bottom: 1px solid black;">
+                        </td>
+                        <td colspan="2" class="text-uppercase">&#x2718;</td>
+                    </tr>
+
+                    <!-- Row 15 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">AI HYDRO TEST</td>
+                        <td colspan="2">
+                            <input asp-for="AI_HYDRO_TEST_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;"></span>
+                            <input asp-for="AI_HYDRO_TEST_DATE" id="datepicker" type="date" />
+                        </td>
+                        <td class="text-uppercase">&#x2718;</td>
+                        <td class="text-uppercase">&#x2718;</td>
+                        <td colspan="2" class="text-uppercase">&#x2718;</td>
+                    </tr>
+
+                    <!-- Row 16 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style="font-size: 12px;">CONDENSATE PAN</td>
+                        <td colspan="2">
+                            <input asp-for="CONDENSATE_PAN_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style="font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="CONDENSATE_PAN_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+
+                    <!-- Row 17 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">FLUE ASSEMBLY</td>
+                        <td colspan="2">
+                            <input asp-for="FLUE_ASSEMBLY_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="FLUE_ASSEMBLY_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 18 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">BASE CLEAT</td>
+                        <td colspan="2">
+                            <input asp-for="BASE_CLEAT_MFG" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        </td>
+                        <td>&#x2718;</td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2">
+                            <input asp-for="BASE_CLEAT_MFG" oninput="this.value = this.value.slice(0, 2)" class="text-uppercase mfg-input" />
+                        </td>
+                    </tr>
+
+                    <!-- Row 19 -->
+                    <tr>
+                        <td>
+                            <input type="checkbox" onclick="toggleRow(this)" checked />
+                        </td>
+                        <td colspan="2" style=" font-size: 12px;">MFG FINAL INSP</td>
+                        <td colspan="2">
+                            <input asp-for="MFG_FINAL_INSP_WELDER" oninput="this.value = this.value.slice(0, 2)" class="number-input" />
+                        <td style="position: relative;">
+                            <span style="position: absolute; top: 0; left: 0; font-size: 12px;"></span>
+                            <input asp-for="AI_HYDRO_TEST_DATE" id="datepicker" type="date" />
+                        </td>
+                        <td colspan="2" class="text-uppercase" style=" font-size: 12px;">NONE REQUIRED</td>
+                        <td colspan="2" class="text-uppercase">&#x2718;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="border p-3 mt-4 center-align">
+            <!-- JOB TRAVELER# -->
+            <label class="p-0">CLICK ON CAPTURE BUTTON TO TAKE SNAP</label>
+        </div>
+
+        <!-- capture code -->
+        <div class="border p-3 mt-4 center-align">
+            <div style="display: flex; flex-direction: column; align-items:center;">
+                <video id="video" style="width:700px;" autoplay></video>
+                <div class="border p-3 mt-4 center-align">
+                    <button class="btn btn-primary mx-2" id="startButton">Start Webcam</button>
+                </div>
+                <div id="snap" class="btn btn-primary mx-2 border p-3 mt-4 center-align">
+                    Capture
+                </div>
+                <canvas id="canvas" width="640" height="480"></canvas>
+            </div>
+
+            <script>
+                const video = document.getElementById('video');
+                const canvas = document.getElementById('canvas');
+                const snap = document.getElementById('snap');
+                const startButton = document.getElementById('startButton');
+
+                const constraints = {
+                    audio: false,
+                    video: {
+                        width: { min: 1024, ideal: 1280, max: 1920 },
+                        height: { min: 576, ideal: 720, max: 1080 }
+                    }
+                };
+
+                let stream;
+
+                async function startWebCam() {
+                    try {
+                        stream = await navigator.mediaDevices.getUserMedia(constraints);
+                        video.srcObject = stream;
+                    } catch (e) {
+                        console.log(e.toString());
+                    }
+                }
+
+                function stopWebCam() {
+                    if (stream) {
+                        const tracks = stream.getTracks();
+                        tracks.forEach(track => track.stop());
+                        video.srcObject = null;
+                    }
+                }
+
+                const context = canvas.getContext('2d');
+                snap.addEventListener('click', () => {
+                    context.drawImage(video, 0, 0, 640, 480);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+                    const bytes = Array.from(imageData);
+
+                    // Save the image in `asp-for="PRODUCT_NUMBER"`
+                    const formData = new FormData();
+                    formData.append('PRODUCT_NUMBER', bytes);
+
+                });
+
+                startButton.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent form submission or link redirect
+                    startWebCam();
+                });
+            </script>
+        </div>
+
+        <div class="border p-3 mt-4 center-align">
+            <!-- EMP# -->
+            <label class="p-0">EMP#</label>
+            <input asp-for="EMP_NUMBER" class="narrow-input" />
+            <!-- DATE -->
+            <!-- DATE -->
+            <label class="p-0">DATE</label>
+            <input asp-for="CAPTURE_DATE" id="datepicker" type="date" />
+        </div>
+
+        <div>
+            <label>PVI Industries</label> <i class="bi bi-caret-right-fill"></i>
+            <label>Conquest/Brigade Tank Fab/ Insp Report</label> <i class="bi bi-caret-right-fill"></i>
+            <lable>Version: March 2023</lable>
+        </div>
+
+
+        <div class="row mt-3">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary form-control">SAVE</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="ASME" asp-action="Index" class="btn btn-outline-secondary form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+
+    </div>
+</form>
